@@ -4,29 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>
-        <%=title  %>
-        <h2>Find a game by:</h2>
-        <a href="/genres">Genre</a>
-        <a href="/devs">Developer</a>
-    </h1>
-        <h3>Games:</h3>
-        <button>add game</button>
-        <% if(locals.games){ %>
-        <% games.forEach(game => { %>
+    <h2>Developers:</h2>
+    <div class="btns">
+        <button>Add</button>
+    </div>
+    <ul>
+        <% if(locals.devs) {%>
+            <% devs.forEach(dev => {%>
+                <li> <a href="/devs?id=<%=dev.id %>"><%=dev.devname %> </a></li>
+                <button>Delete</button>
+                <button>Update</button>
+            <% }); %>
+        <% } %>
+   </ul>
+   <h3>Games:</h3>
+   <%if(locals.games) { %>
+           <% games.forEach(game => { %>
             <a href="/item?id=<%=game.id%>">
             <ul>
                 <li> <%=game.name %></li>
                 <li><%=game.yr %></li>
-                
             </ul>
             </a>
             <button>Delete</button>
                 <button>Update</button>
         <%  });  %>
-        <% } %>
+    <% } %>
 </body>
 </html>

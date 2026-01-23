@@ -6,7 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <h2><%=item[0].h2 %></h2>
-
+    <h2>Genres:</h2>
+    <ul>
+        <% if(locals.genres) {%>
+            <% genres.forEach(genre => {%>
+                <li><%=genre.name %> </li>
+            <% }); %>
+        <% } %>
+   </ul>
 </body>
 </html>
