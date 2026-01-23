@@ -1,8 +1,13 @@
 const pool = require("./pool");
 
 async function getItemById(id){
-    const {rows} = await pool.query("SELECT * FROM games WHERE id=$1",[id]);
-    return rows;
+    try {
+         const {rows} = await pool.query("SELECT * FROM games WHERE id=$1",[id]);
+        return rows;
+    } catch (error) {
+        throw error
+    }
+   
 }
 
 module.exports={
