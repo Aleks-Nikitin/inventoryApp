@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+      <%-include("partials/nav.ejs") %>
     <h1>Item page</h1>
         <h2>
             <%=item[0].name  %>
@@ -15,6 +16,12 @@
         </h2>
         <h2>
             <%=item[0].bio  %>
+        </h2>
+        <h2>
+            <%=item[0].genreid  %>
+        </h2>
+        <h2>
+            <%=item[0].devid  %>
         </h2>
 </body>
 </html>

@@ -7,14 +7,13 @@
      <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+    <%-include("partials/nav.ejs") %>
     <h1>
         <%=title  %>
-        <h2>Find a game by:</h2>
-        <a href="/genres">Genre</a>
-        <a href="/devs">Developer</a>
+      
     </h1>
         <h3>Games:</h3>
-        <button>add game</button>
+        <a href="/item/add"><button>add game</button></a>
         <% if(locals.games){ %>
         <% games.forEach(game => { %>
             <a href="/item?id=<%=game.id%>">

@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+      <%-include("partials/nav.ejs") %>
     <h2>Developers:</h2>
     <div class="btns">
         <button>Add</button>
@@ -26,6 +27,7 @@
             <ul>
                 <li> <%=game.name %></li>
                 <li><%=game.yr %></li>
+                <li><%=game.devname  %></li>
             </ul>
             </a>
             <button>Delete</button>
