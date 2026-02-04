@@ -12,7 +12,10 @@ async function getItemById(id){
 }
 async function postItem(name,yr,bio,devid,genreid){
     console.log(`postItem:${devid},${genreid},${typeof devid}`);
-    await pool.query("INSERT INTO games(name,yr,bio,devid,genreid) VALUES($1,$2,$3,$4,$5)",[name,yr,bio,devid,genreid]);
+    await pool.query("INSERT INTO games(name,yr,bio,devid,genreid) VALUES($1,$2,$3,$4,$5)",[name,yr,bio,Number(devid),Number(genreid)]);
+}
+async function updateItem(name,yr,bio,devid,genreid,id){
+    await pool.query("UPDATE games SET name=$1, yr=$2,bio=$3,devid=$4,genreid=$5 WHERE id =$6",[name,yr,bio,devid,genreid,id])
 }
 async function getAllGames() {
     const {rows}=await pool.query("SELECT * FROM games");
@@ -54,5 +57,6 @@ module.exports={
     getAllGenres,
     getAllGenreIds,
     getAllDevIds,
-    postItem
+    postItem,
+    updateItem
 }

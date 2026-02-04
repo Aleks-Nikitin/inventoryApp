@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <%-include("partials/nav.ejs") %>
+      <%-include("partials/errors.ejs") %>
+    <form 
+    <% if(locals.item){ %>
+           action="/item?id=<%=item.id  %>"
+        <% } else { %>
+            action="/item"
+            <% } %>
+            method="post">
+        <label for="name"> Game Name:</label>
+        <input type="text" name="name" id="name"
+        <% if(locals.item){ %>
+            value="<%=item.name %>"
+            <% } %>  required>
+        <label for="yr">Year:</label>
+        <input type="number" name="yr" id="yr" <% if(locals.item){ %>
+            value="<%=item.yr %>"
+            <% } %>  required>
+        <label for="devname">Developer name</label>
+        <select name="devid" id="devname">
+            <% devs.forEach(dev => {%>  
+                <option value="<%=dev.id %>"
+                    <% if(locals.item){ %>
+                     <% if(item.devid == dev.id){ %>
+                         selected="selected" 
+                         <% } }  %>
+                     > <%=dev.devname %></option>
+           <% });  %>
+        </select>
+        <label for="genres">Genres:</label>
+        <select name="genreid" id="genres">
+            <% genres.forEach(genre => {%>
+                <option value="<%=genre.id %>"  
+                    <% if(locals.item){ %>
+                    <% if(item.genreid == genre.id && locals.item){ %> 
+                    selected="selected"
+                     <% }}  %>
+                    > <%=genre.genname %></option>
+            <%}); %>
+        </select>
+        <label for="bio">Description:</label>
+        <textarea name="bio" id="bio">
+            <% if(locals.item){ %>
+                <%=item.bio%>
+                <% } %>
+        </textarea>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

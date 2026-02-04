@@ -30,24 +30,35 @@ async function getItem(req,res){
 async function getItemForm(req,res){
     const devs = await db.getAllDevs();
     const genres = await db.getAllGenres();
-    res.render("itemForm.ejs",{title:"Add your game",devs:devs,genres:genres});
+    const {id}= req.query;
+    if(id){
+        const itemInfo = await db.getItemById(id); 
+        console.log(`get item form info:${itemInfo}`);
+        return res.render("updateItem.ejs",{title:"Update Your Game",devs:devs,genres:genres,item:itemInfo[0]})
+    }
+    res.render("updateItem.ejs",{title:"Add your game",devs:devs,genres:genres});
 }
 const postItem=[validateGame,async function (req,res){
     const errors = validationResult(req);
     if(!errors.isEmpty()){
          const devs = await db.getAllDevs();
         const genres = await db.getAllGenres();
-        return res.status(400).render("itemForm",{
-            errors:errors.array(),title:"Add your game",devs:devs,genres:genres
+        return res.status(400).render("updateItem",{
+            errors:errors.array(),title:"Add your game",devs:devs,genres:genres,item:req.body
         })
     }
     const {name,yr,bio,devid,genreid}=matchedData(req);
+    const {id}=req.query;
+    if(id){
+        await db.updateItem(name,yr,bio,devid,genreid,id); 
+       return res.redirect("/")
+    }
     await db.postItem(name,yr,bio,devid,genreid);
     res.redirect("/")
 }]
-
+ 
 module.exports={
     getItem,
     getItemForm,
     postItem
-}
+} 
