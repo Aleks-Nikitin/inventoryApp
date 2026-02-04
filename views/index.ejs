@@ -10,7 +10,7 @@
     <%-include("partials/nav.ejs") %>
     <h1>
         <%=title  %>
-      
+    
     </h1>
         <h3>Games:</h3>
         <a href="/item/add"><button>add game</button></a>
@@ -23,7 +23,7 @@
                 
             </ul>
             </a>
-            <button>Delete</button>
+            <a href="/item/delete?id=<%=game.id %>"><button>Delete</button></a>
                 <a href="/item/add?id=<%=game.id %>"><button>Update</button> </a>
         <%  });  %>
         <% } %>

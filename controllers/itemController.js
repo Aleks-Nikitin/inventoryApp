@@ -27,6 +27,12 @@ async function getItem(req,res){
     res.render("item",{item:itemInfo})
 
 }
+async function deleteItem(req,res){
+    const {id}=req.query;
+
+    await db.deleteItem(id);
+    res.redirect("/");
+}
 async function getItemForm(req,res){
     const devs = await db.getAllDevs();
     const genres = await db.getAllGenres();
@@ -34,9 +40,9 @@ async function getItemForm(req,res){
     if(id){
         const itemInfo = await db.getItemById(id); 
         console.log(`get item form info:${itemInfo}`);
-        return res.render("updateItem.ejs",{title:"Update Your Game",devs:devs,genres:genres,item:itemInfo[0]})
+        return res.render("updateItem",{title:"Update Your Game",devs:devs,genres:genres,item:itemInfo[0]})
     }
-    res.render("updateItem.ejs",{title:"Add your game",devs:devs,genres:genres});
+    res.render("updateItem",{title:"Add your game",devs:devs,genres:genres});
 }
 const postItem=[validateGame,async function (req,res){
     const errors = validationResult(req);
@@ -44,7 +50,7 @@ const postItem=[validateGame,async function (req,res){
          const devs = await db.getAllDevs();
         const genres = await db.getAllGenres();
         return res.status(400).render("updateItem",{
-            errors:errors.array(),title:"Add your game",devs:devs,genres:genres,item:req.body
+            errors:errors.array(),title:"Add your game",devs:devs,genres: genres, item:req.body
         })
     }
     const {name,yr,bio,devid,genreid}=matchedData(req);
@@ -60,5 +66,6 @@ const postItem=[validateGame,async function (req,res){
 module.exports={
     getItem,
     getItemForm,
-    postItem
+    postItem,
+    deleteItem
 } 

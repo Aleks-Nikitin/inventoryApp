@@ -17,6 +17,9 @@ async function postItem(name,yr,bio,devid,genreid){
 async function updateItem(name,yr,bio,devid,genreid,id){
     await pool.query("UPDATE games SET name=$1, yr=$2,bio=$3,devid=$4,genreid=$5 WHERE id =$6",[name,yr,bio,devid,genreid,id])
 }
+async function deleteItem(id){
+    await pool.query("DELETE FROM games WHERE id =$1",[id])
+}
 async function getAllGames() {
     const {rows}=await pool.query("SELECT * FROM games");
     return rows;
@@ -24,6 +27,9 @@ async function getAllGames() {
 async function getAllDevs(){
     const {rows}=await pool.query("SELECT * FROM devs");
     return rows;
+}
+async function postDev(devname){
+    await pool.query("INSERT INTO devs(devname) VALUES($1)",[devname]);
 }
 async function getAllDevIds(){
     const{rows}=await pool.query("SELECT id FROM devs");
@@ -57,6 +63,8 @@ module.exports={
     getAllGenres,
     getAllGenreIds,
     getAllDevIds,
+    postDev,
+    deleteItem,
     postItem,
     updateItem
 }

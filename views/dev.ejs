@@ -9,12 +9,12 @@
       <%-include("partials/nav.ejs") %>
     <h2>Developers:</h2>
     <div class="btns">
-        <button>Add</button>
+       <a href="/dev/add"> <button>Add</button></a>
     </div>
     <ul>
         <% if(locals.devs) {%>
             <% devs.forEach(dev => {%>
-                <li> <a href="/devs?id=<%=dev.id %>"><%=dev.devname %> </a></li>
+                <li> <a href="/dev?id=<%=dev.id %>"><%=dev.devname %> </a></li>
                 <button>Delete</button>
                 <button>Update</button>
             <% }); %>
