@@ -16,7 +16,7 @@
             <% devs.forEach(dev => {%>
                 <li> <a href="/dev?id=<%=dev.id %>"><%=dev.devname %> </a></li>
                 <button>Delete</button>
-                <button>Update</button>
+                <a href="/dev/add?id=<%=dev.id%>"><button>Update</button></a>
             <% }); %>
         <% } %>
    </ul>
@@ -30,8 +30,8 @@
                 <li><%=game.devname  %></li>
             </ul>
             </a>
-            <button>Delete</button>
-                <button>Update</button>
+              <a href="/item/delete?id=<%=game.id %>"><button>Delete</button></a>
+                <a href="/item/add?id=<%=game.id %>"><button>Update</button> </a>
         <%  });  %>
     <% } %>
 </body>

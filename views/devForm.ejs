@@ -10,7 +10,11 @@
       <%-include("partials/errors.ejs") %>
       <h1><%=title %></h1>
 
-      <form action="/dev/add" method="post">
+      <form <% if(locals.dev){ %>
+            action="/dev/add?id=<%=dev.id %>"
+        <% } %>
+         action="/dev/add"
+         method="post">
         <label for="devname">Developer's name:</label>
         <input type="text" id="devname" name="devname" <% if(locals.dev){ %>
             value="<%=dev.devname %>"

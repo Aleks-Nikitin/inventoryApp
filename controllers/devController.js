@@ -18,14 +18,29 @@ async function getDevPage(req,res) {
 
 
 async function getForm(req,res) {
-   return res.render("devForm",{title:"Dev form"})
+    const{id}=req.query;
+    if(id){
+        const devInfo= await db.getDevById(id);
+        return res.render("devForm",{title:"Dev Form",dev:devInfo[0]});
+    }
+   res.render("devForm",{title:"Dev form"})
 }
 const postDev = [validateDev,async function (req,res) {
     const errors =validationResult(req);
+    const {id}= req.query;
     if(!errors.isEmpty()){
-        return res.render("devForm",{title:"Dev Form",errors:errors.array(),dev:req.body})
+        if(id){
+            req.body.id=id;
+            return res.render("devForm",{title:"Dev Form",errors:errors.array(),dev:req.body})
+        }
+       return res.render("devForm",{title:"Dev Form",errors:errors.array(),dev:req.body})
     }
     const{devname}= matchedData(req);
+ 
+    if(id){
+        await db.updateDev(devname,id);
+        return res.redirect("/dev")
+    }
     await db.postDev(devname);
 
     res.redirect("/dev");
