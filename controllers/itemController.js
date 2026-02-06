@@ -24,6 +24,12 @@ const validateGame=[
 async function getItem(req,res){
     const {id} = req.query;
     const itemInfo = await db.getItemById(id);
+    const {devid}=itemInfo[0];
+    const {genreid}=itemInfo[0];
+    const [{genname}] = await db.getGenreById(genreid);
+    const [{devname}] = await db.getDevById(devid);
+    itemInfo[0].genname =genname;
+    itemInfo[0].devname= devname;
     res.render("item",{item:itemInfo})
 
 }

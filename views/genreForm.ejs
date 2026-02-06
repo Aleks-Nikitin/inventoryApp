@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <%-include("partials/nav.ejs") %>
+      <%-include("partials/errors.ejs") %>
+      <h1><%=title %></h1>
+
+      <form <% if(locals.genre){ %>
+            action="/genre/add?id=<%=genre.id %>"
+        <% } %>
+         action="/genre/add"
+         method="post">
+        <label for="genname">Genre name:</label>
+        <input type="text" id="genname" name="genname" <% if(locals.genre){ %>
+            value="<%=genre.genname %>"
+            <% } %>
+        >
+
+        <button type="submit">Submit</button>
+      </form>
+</body>
+</html>

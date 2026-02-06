@@ -49,6 +49,16 @@ async function getAllDevIds(){
     })
     return idList;
 }
+async function deleteGenreById(id){
+    await pool.query("DELETE FROM genres WHERE id=$1",[id]);
+}
+async function updateGenre(genname,id){
+    await pool.query("UPDATE genres SET genname=$1 WHERE id=$2",[genname,id]);
+}
+async function getGenreById(id){
+    const{rows}=await pool.query("SELECT * FROM genres WHERE id=$1",[id]);
+    return rows
+}
 async function getAllGenreIds() {
     const {rows}=await pool.query("SELECT id FROM genres");
     const idList=[];
@@ -61,6 +71,13 @@ async function getAllGenres(){
     const {rows}= await pool.query("SELECT * FROM genres");
     return rows;
 }
+async function getGamesByGenre(id){
+    const {rows}=await pool.query("SELECT name,yr,genname,games.id FROM games JOIN genres ON games.genreid = genres.id WHERE genres.id=$1",[id]);
+    return rows;
+}
+async function postGenre(genname){
+    await pool.query("INSERT INTO genres(genname) VALUES($1)",[genname]);
+}
 async function getGamesByDev(devid) {
     const {rows}= await pool.query("SELECT name,yr,devname,games.id FROM games JOIN devs ON games.devid = devs.id WHERE devs.id=$1",[devid]);
     return rows;
@@ -71,8 +88,13 @@ module.exports={
     getAllDevs,
     getGamesByDev,
     getAllGenres,
+    deleteGenreById,
+    getGenreById,
     getAllGenreIds,
+    getGamesByGenre,
+    updateGenre,
     getAllDevIds,
+    postGenre,
     deleteDevById,
     postDev,
     updateDev,

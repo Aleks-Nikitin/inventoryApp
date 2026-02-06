@@ -8,12 +8,31 @@
 <body>
       <%-include("partials/nav.ejs") %>
     <h2>Genres:</h2>
-    <ul>
+    <div class="btns">
+       <a href="/genre/add"> <button>Add</button></a>
+    </div>
+    <ul> 
         <% if(locals.genres) {%>
             <% genres.forEach(genre => {%>
-                <li><%=genre.name %> </li>
+                <li> <a href="/genre?id=<%=genre.id %>"><%=genre.genname %> </a></li>
+                <a href="/genre/delete?id=<%=genre.id%>"><button>Delete</button></a>
+                <a href="/genre/add?id=<%=genre.id%>"><button>Update</button></a>
             <% }); %>
         <% } %>
    </ul>
+   <h3>Games:</h3>
+   <%if(locals.games) { %>
+           <% games.forEach(game => { %>
+            <a href="/item?id=<%=game.id%>">
+            <ul>
+                <li> <%=game.name %></li>
+                <li><%=game.yr %></li>
+                <li><%=game.genname  %></li>
+            </ul>
+            </a>
+              <a href="/item/delete?id=<%=game.id %>"><button>Delete</button></a>
+                <a href="/item/add?id=<%=game.id %>"><button>Update</button> </a>
+        <%  });  %>
+    <% } %>
 </body>
 </html>
