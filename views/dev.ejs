@@ -15,7 +15,7 @@
         <% if(locals.devs) {%>
             <% devs.forEach(dev => {%>
                 <li> <a href="/dev?id=<%=dev.id %>"><%=dev.devname %> </a></li>
-                <button>Delete</button>
+                <a href="/dev/delete?id=<%=dev.id%>"><button>Delete</button></a>
                 <a href="/dev/add?id=<%=dev.id%>"><button>Update</button></a>
             <% }); %>
         <% } %>

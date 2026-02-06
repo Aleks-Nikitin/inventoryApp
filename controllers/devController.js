@@ -15,7 +15,11 @@ async function getDevPage(req,res) {
     }
     res.render("dev",{devs:devs});
 }
-
+async function deleteDev(req,res) {
+    const {id}=req.query;
+    await db.deleteDevById(id);
+    res.redirect("/dev");
+}
 
 async function getForm(req,res) {
     const{id}=req.query;
@@ -48,5 +52,6 @@ const postDev = [validateDev,async function (req,res) {
 module.exports={
     getDevPage,
     getForm,
-    postDev
+    postDev,
+    deleteDev
 }

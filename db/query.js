@@ -32,6 +32,9 @@ async function getDevById(id) {
     const {rows}= await pool.query("SELECT * FROM devs WHERE id=$1",[id]);
     return rows;
 }
+async function deleteDevById(id){
+    await pool.query("DELETE FROM devs WHERE id =$1",[id])
+}
 async function postDev(devname){
     await pool.query("INSERT INTO devs(devname) VALUES($1)",[devname]);
 }
@@ -70,6 +73,7 @@ module.exports={
     getAllGenres,
     getAllGenreIds,
     getAllDevIds,
+    deleteDevById,
     postDev,
     updateDev,
     getDevById,

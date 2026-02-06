@@ -46,15 +46,19 @@ async function getItemForm(req,res){
 }
 const postItem=[validateGame,async function (req,res){
     const errors = validationResult(req);
+    const {id}=req.query;
     if(!errors.isEmpty()){
          const devs = await db.getAllDevs();
         const genres = await db.getAllGenres();
+        if(id){
+            req.body.id=id;
+            return res.render("updateItem",{errors:errors.array(),title:"Add your game",devs:devs,genres:genres,item:req.body})
+        }
         return res.status(400).render("updateItem",{
             errors:errors.array(),title:"Add your game",devs:devs,genres: genres, item:req.body
         })
     }
     const {name,yr,bio,devid,genreid}=matchedData(req);
-    const {id}=req.query;
     if(id){
         await db.updateItem(name,yr,bio,devid,genreid,id); 
        return res.redirect("/")
