@@ -45,7 +45,6 @@ async function getItemForm(req,res){
     const {id}= req.query;
     if(id){
         const itemInfo = await db.getItemById(id); 
-        console.log(`get item form info:${itemInfo}`);
         return res.render("updateItem",{title:"Update Your Game",devs:devs,genres:genres,item:itemInfo[0]})
     }
     res.render("updateItem",{title:"Add your game",devs:devs,genres:genres});

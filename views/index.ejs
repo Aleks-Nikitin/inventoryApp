@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-     <link rel="stylesheet" href="/styles.css">
-</head>
+<%-include("partials/head.ejs") %>
 <body>
     <%-include("partials/nav.ejs") %>
-    <h1>
-        <%=title  %>
-    
-    </h1>
+    <div class="titleBar">
         <h3>Games:</h3>
         <a href="/item/add"><button>add game</button></a>
+    </div>
+    <div class="content">
+
+    
         <% if(locals.games){ %>
         <% games.forEach(game => { %>
+            <div class="game">
             <a href="/item?id=<%=game.id%>">
             <ul>
-                <li> <%=game.name %></li>
-                <li><%=game.yr %></li>
+                <li> <%=game.name %>.  <%=game.yr %></li>
                 
             </ul>
             </a>
+            <div class="btns">
             <a href="/item/delete?id=<%=game.id %>"><button>Delete</button></a>
                 <a href="/item/add?id=<%=game.id %>"><button>Update</button> </a>
+                </div>
+                </div>
         <%  });  %>
         <% } %>
+
+        </div>
 </body>
 </html>
