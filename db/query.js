@@ -1,4 +1,3 @@
-const { post } = require("../routes/itemRouter");
 const pool = require("./pool");
 
 async function getItemById(id){
